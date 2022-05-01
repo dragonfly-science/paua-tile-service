@@ -1,0 +1,52 @@
+{
+    "version": 8,
+    "name": "coast",
+    "metadata": {"maptiler:copyright": "None", "openmaptiles:version": "3.x"},
+    "center": [166.453857,-45.821143,14],
+    "zoom": 3,
+    "sources": {
+      "combined": {
+        "tiles": [
+            "http://localhost:8001/tiles/combined/{z}/{x}/{y}.pbf"
+        ],
+        "type": "vector",
+        "maxzoom": 24,
+        "minzoom": 0
+      }
+    },
+    "glyphs": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
+    "layers": [
+      {
+        "id": "background",
+        "type": "background",
+        "maxzoom": 24,
+        "filter": ["all"],
+        "layout": {"visibility": "visible"},
+        "paint": {"background-color": "#000000"}
+      },
+      {
+        "id": "coast",
+        "source": "combined",
+        "source-layer": "WGS",
+        "type": "fill",
+        "paint": {
+          "fill-color": "#0ff00f"
+        }
+      },
+      {
+        "id": "names",
+        "source": "combined",
+        "source-layer": "nzplacenamesnzgb",
+        "type": "symbol",
+        "filter": ["all", ["==", "desc_code", "LOC"]],        
+        "layout": {
+            "text-field": "{name}",
+            "text-justify": "auto"
+        },
+        "paint": {
+          "text-color": "#ffffff"
+        }
+      }
+    ],
+    "id": "coast"
+  }
