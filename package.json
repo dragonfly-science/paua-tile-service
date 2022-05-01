@@ -1,11 +1,16 @@
 {
-  "name": "paua-tile-service",
+  "name": "paua-tile-service-openlayers",
   "version": "1.0.0",
-  "description": "Paua Demo Service",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "vite": "^2.6.7"
+  },
+  "dependencies": {
+    "@geoblocks/ol-maplibre-layer": "^0.0.4",
+    "ol": "latest"
+  }
 }
