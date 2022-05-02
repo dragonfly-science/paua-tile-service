@@ -7,7 +7,7 @@
     "sources": {
       "combined": {
         "tiles": [
-            "https://tile-service-vector.s3.us-east-1.amazonaws.com/tiles/bw/{z}/{x}/{y}.pbf"
+            "https://tile-service-vector.s3.us-east-1.amazonaws.com/tiles/nz-base/{z}/{x}/{y}.pbf"
         ],
         "type": "vector",
         "maxzoom": 11,
@@ -39,12 +39,12 @@
         "source-layer": "nzrivernamelinespilot",
         "type": "line",
         "paint": {
-          "line-color": "#888888",
+          "line-color": "#6c9dac",
           "line-width": {
             "stops": [
               [10, 0],
-              [11, 0.01],
-              [15, 0.05]
+              [11, 0.075],
+              [15, 0.1]
             ]
           }
         }
@@ -55,7 +55,7 @@
         "source-layer": "nzriverpolygonstopo150k",
         "type": "fill",
         "paint": {
-          "fill-color": "#888888"
+          "fill-color": "#6c9dac"
         }
       },
       {
@@ -64,7 +64,7 @@
         "source-layer": "nzlakepolygonstopo150k",
         "type": "fill",
         "paint": {
-          "fill-color": "#888888"
+          "fill-color": "#6c9dac"
         }
       },
       {
@@ -75,12 +75,12 @@
         "filter": ["all", ["<=", "lane_count", 2]],
         "layout": {"visibility": "visible"},
         "paint": {
-          "line-color": "#333333",
+          "line-color": "#555555",
           "line-width": {
             "stops": [
               [8, 0],
-              [9, 0.1],
-              [14, 0.25]
+              [9, 0.25],
+              [14, 0.5]
             ]
           }
         }
@@ -93,15 +93,15 @@
         "filter": ["all", ["has", "hway_num"]],
         "layout": { "visibility": "visible" },
         "paint": {
-          "line-color": "#ff000f",
+          "line-color": "#cf6849",
           "line-width": {
             "stops": [
               [1, 0.01],
               [6, 0.2],
               [7, 0.3],
               [8, 0.4],
-              [9, 0.5],
-              [14, 1.0]
+              [9, 0.75],
+              [14, 1.25]
             ]
           }
         }

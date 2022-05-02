@@ -11,9 +11,9 @@ html, body {
   width: 100%;
 }
 
-#map canvas {
+/* #map canvas {
   mix-blend-mode: multiply;
-}
+} */
 
 /* map-controls */
 .menu-ui {

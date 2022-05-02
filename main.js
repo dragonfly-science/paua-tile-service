@@ -87,20 +87,11 @@ const bathyStyle = {
           "type": "raster",
           "layout": { "visibility": "visible" },
           "paint": {
-              "raster-opacity": 0.75,
+              "raster-opacity": 1,
               "raster-resampling": "linear",
               "raster-brightness-max": 1.0,
               "raster-brightness-min": 0.5,
-              "raster-contrast": 0,
-              "raster-opacity": {
-                  "stops": [
-                  [1, 0.35],
-                  [7, 0.35],
-                  [8, 0.65],
-                  [15, 0.65],
-                  [16, 0.3]
-                  ]
-              },
+              "raster-contrast": 0.25
           }
       },
       {
@@ -109,20 +100,11 @@ const bathyStyle = {
           "type": "raster",
           "layout": { "visibility": "visible" },
           "paint": {
-              "raster-opacity": 0.75,
+              "raster-opacity": 1,
               "raster-resampling": "linear",
               "raster-brightness-max": 1.0,
               "raster-brightness-min": 0.5,
-              "raster-contrast": 0,
-              "raster-opacity": {
-                  "stops": [
-                    [1, 0.35],
-                    [7, 0.35],
-                    [8, 0.65],
-                    [15, 0.65],
-                    [16, 0.3]
-                  ]
-                },
+              "raster-contrast": 0.25
               }
       }
   ]
@@ -142,10 +124,11 @@ const source = new GeoTIFF({
   ],
 });
 
+// cog file load
 const rendered = new TileLayer({
   visible: false,
   crossOrigin: 'anonymous',
-  opacity: 1,
+  opacity: 0.35,
   source: source,
   style: {
     color: [
@@ -157,7 +140,10 @@ const rendered = new TileLayer({
       2, [249, 167, 62, 1],
       3, [0, 111, 60, 1],
       4, [38,75,150, 1]
-     ]
+     ],
+     saturation: 1,
+     exposure: 0.25,
+     contrast: 0.15
   }
 })
 
@@ -169,7 +155,7 @@ const base =  new MapLibreLayer({
 });
 
 const vectorTile = new MapLibreLayer({  
-  opacity: 1,
+  opacity: 0.85,
   crossOrigin: 'anonymous',
   maplibreOptions: {
     style: './style/style.json'
