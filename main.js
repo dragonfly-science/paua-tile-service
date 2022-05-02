@@ -155,7 +155,7 @@ const base =  new MapLibreLayer({
 });
 
 const vectorTile = new MapLibreLayer({  
-  opacity: 0.85,
+  opacity: 0.75,
   crossOrigin: 'anonymous',
   maplibreOptions: {
     style: './style/style.json'
@@ -167,15 +167,27 @@ const map = new Map ({
   overlays: [overlay],
   target: 'map',
   view: new View({
-    center: olProj.fromLonLat([174.0,-41.29]),
-    zoom: 10
+    center: olProj.fromLonLat([174.2,-41.18]),
+    zoom: 11,
+    maxZoom: 15,
+    minZoom: 9
   })
 });
 
 map.on('singleclick', function(evt) {
   const coordinate = evt.coordinate;
   const data = rendered.getData(evt.pixel);
-  console.log(data[0])  
-  content.innerHTML = '<p>Seafloor classification value here is:</p><code>' + data[0] + '</code>';
+  console.log(data[0])
+  if (data[0]==1) {
+    var codeText = "Low reflectivity (mud)"
+  } else if (data[0]==2) {
+    var codeText = "Low - medium reflectivity (fine sand)"
+  } else if (data[0]==3) {
+    var codeText = "Medium - high reflectivity (medium sand)"
+  } else if (data[0]==4) {
+    var codeText = "High reflectivity (coarse sand, gravel)"
+  }
+  content.innerHTML = '<p>Seafloor classification value:</p><p><code>' + data[0] + '</code></p><p>' + codeText + '</p>';
   overlay.setPosition(coordinate);    
 })
+
