@@ -4,22 +4,19 @@ import TileLayer from 'ol/layer/WebGLTile';
 import OSM from 'ol/source/OSM';
 import MapLibreLayer from '@geoblocks/ol-maplibre-layer';
 import * as olProj from 'ol/proj';
-import Source from 'ol/source/Source';
 import GeoTIFF from 'ol/source/GeoTIFF';
 import Overlay from 'ol/Overlay';
 
-  //toggle seafloor view 
-  document.getElementById("menu-ui").onclick = function() { 
-    rendered.setVisible(!rendered.getVisible());
-  }; 
+//toggle seafloor view 
+document.getElementById("menu-ui").onclick = function() { 
+  cog.setVisible(!cog.getVisible());
+}; 
 
 const container = document.getElementById('popup');
 const content = document.getElementById('popup-content');
 const closer = document.getElementById('popup-closer');
 
-/**
- * Create an overlay to anchor the popup to the map.
- */
+// Create an overlay to anchor the popup to the map
  const overlay = new Overlay({
   element: container,
   autoPan: {
@@ -39,79 +36,10 @@ closer.onclick = function () {
   return false;
 };
 
-const bathyStyle = {
-  "version": 8,
-  "sources": {
-      "hs_tory": {
-          "type": "raster",
-          "tiles": ["https://tile-service-raster.s3.us-east-1.amazonaws.com/tiles/base-bathy/{z}/{x}/{y}.png"],
-          "bounds": [-178.826516,-52.620881,179.067794,-29.231342],
-          "scheme": "xyz",
-          "tileSize": 256,
-          "attribution": "Mine!",
-          "maxzoom": 18
-      },
-      "hs_nz": {
-          "type": "raster",
-          "tiles": ["https://tile-service-raster.s3.us-east-1.amazonaws.com/tiles/hs-nz/{z}/{x}/{y}.png"],
-          "bounds": [-178.826516,-52.620881,179.067794,-29.231342],
-          "scheme": "tms",
-          "tileSize": 256,
-          "attribution": "Mine!",
-          "maxzoom": 18
-      },
-      "hs_raster": {
-          "type": "raster",
-          "tiles": ["https://tile-service-raster.s3.us-east-1.amazonaws.com/tiles/marlborough-tiles/{z}/{x}/{y}.png"],
-          "bounds": [-178.826516,-52.620881,179.067794,-29.231342],
-          "scheme": "xyz",
-          "tileSize": 256,
-          "attribution": "Mine!",
-          "maxzoom": 18
-      }
-  },
-  "layers":[         
-     {
-          "id": "hs_tory",
-          "source": "hs_tory",
-          "type": "raster",
-          "layout": { "visibility": "visible" },
-          "paint": {
-              "raster-resampling": "linear",
-              "raster-opacity": 1.0,
-          }
-     },
-     {
-          "id": "hs_nz",
-          "source": "hs_nz",
-          "type": "raster",
-          "layout": { "visibility": "visible" },
-          "paint": {
-              "raster-opacity": 1,
-              "raster-resampling": "linear",
-              "raster-brightness-max": 1.0,
-              "raster-brightness-min": 0.5,
-              "raster-contrast": 0.25
-          }
-      },
-      {
-          "id": "hs_raster",
-          "source": "hs_raster",
-          "type": "raster",
-          "layout": { "visibility": "visible" },
-          "paint": {
-              "raster-opacity": 1,
-              "raster-resampling": "linear",
-              "raster-brightness-max": 1.0,
-              "raster-brightness-min": 0.5,
-              "raster-contrast": 0.25
-              }
-      }
-  ]
-}
-
+// URL to COG tile
 const url = 'https://tile-service-raster.s3.us-east-1.amazonaws.com/cogs/seafloor/HS51_Seafloor_Classification_webmer_cog.tif'
 
+// Grab COG tile, set min, max, nodata
 const source = new GeoTIFF({
   normalize: false,
   sources: [
@@ -124,8 +52,8 @@ const source = new GeoTIFF({
   ],
 });
 
-// cog file load
-const rendered = new TileLayer({
+// cog file load and colour values
+const cog = new TileLayer({
   visible: false,
   crossOrigin: 'anonymous',
   opacity: 0.35,
@@ -134,7 +62,7 @@ const rendered = new TileLayer({
     color: [
       'interpolate',
       ['linear'],
-      ['*', ['band', 1], 1],
+      ['band', 1],
       0, [0,0,0,0],
       1, [191, 33, 47, 1],
       2, [249, 167, 62, 1],
@@ -147,13 +75,15 @@ const rendered = new TileLayer({
   }
 })
 
-const base =  new MapLibreLayer({  
+// Set base raster tiles 
+const baseRasterTile =  new MapLibreLayer({  
   crossOrigin: 'anonymous',
   maplibreOptions: {
-    style: bathyStyle,
+    style: './style/rasterTiles.json',
   },
 });
 
+// Set vector tiles
 const vectorTile = new MapLibreLayer({  
   opacity: 0.75,
   crossOrigin: 'anonymous',
@@ -162,8 +92,9 @@ const vectorTile = new MapLibreLayer({
   }
 });
 
+// draw map
 const map = new Map ({
-  layers: [base, vectorTile, rendered],
+  layers: [baseRasterTile, vectorTile, cog],
   overlays: [overlay],
   target: 'map',
   view: new View({
@@ -174,9 +105,10 @@ const map = new Map ({
   })
 });
 
+// Set onclick to return values from COG
 map.on('singleclick', function(evt) {
   const coordinate = evt.coordinate;
-  const data = rendered.getData(evt.pixel);
+  const data = cog.getData(evt.pixel);
   console.log(data[0])
   if (data[0]==1) {
     var codeText = "Low reflectivity (mud)"
