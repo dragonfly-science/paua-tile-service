@@ -11,6 +11,13 @@ html, body {
   width: 100%;
 }
 
+/* #controls {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index:1;
+} */
+
 /* #map canvas {
   mix-blend-mode: multiply;
 } */
