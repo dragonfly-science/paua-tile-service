@@ -196,7 +196,7 @@ document.getElementById("seafloor").onclick = function() {
       console.log(optionName)
 
       const nameEl = cogVis.find(nameEl => nameEl.name === optionName);
-      const newStyle = nameEl.color;
+      const newStyle = nameEl.style;
       console.log(newStyle)
       cog.updateStyleVariables(newStyle);
       
