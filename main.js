@@ -55,29 +55,59 @@ const cogSource = new GeoTIFF({
 const cogVis = [
   {
     name: "All Values",
-    color: [
-      'interpolate',
-      ['linear'],
-      ['band', 1],
-      0, [0,0,0,0],
-      1, [191, 33, 47, 1],
-      2, [249, 167, 62, 1],
-      3, [0, 111, 60, 1],
-      4, [38,75,150, 1]
-     ]
+    style: {
+      color: [
+        'interpolate',
+        ['linear'],
+        ['band', 1],
+        0, [0,0,0,0],
+        1, [191, 33, 47, 1],
+        2, [249, 167, 62, 1],
+        3, [0, 111, 60, 1],
+        4, [38,75,150, 1]
+       ],
+     saturation: 1,
+     exposure: 0.25,
+     contrast: 0.15,
+    }
   },
   {
     name: "Mud Only",
-    color: [
-      'interpolate',
-      ['linear'],
-      ['band', 1],
-      0, [0,0,0,0],
-      1, [191, 33, 47, 1],
-      2, [249, 167, 62, 0],
-      3, [0, 111, 60, 0],
-      4, [38,75,150, 0]
-     ]
+    style: {
+      color: [
+        'interpolate',
+        ['linear'],
+        ['band', 1],
+        0, [0,0,0,0],
+        1, [191, 33, 47, 1],
+        2, [249, 167, 62, 0],
+        3, [0, 111, 60, 0],
+        4, [38,75,150, 0]
+       ],
+     saturation: 1,
+     exposure: 0.25,
+     contrast: 0.15,
+    }
+    
+  },
+  {
+    name: "Gravel Only",
+    style: {
+      color: [
+        'interpolate',
+        ['linear'],
+        ['band', 1],
+        0, [0,0,0,0],
+        1, [191, 33, 47, 0],
+        2, [249, 167, 62, 0],
+        3, [0, 111, 60, 0],
+        4, [38,75,150, 1]
+       ],
+     saturation: 1,
+     exposure: 0.25,
+     contrast: 0.15,
+    }
+    
   }
 ];
 
@@ -115,6 +145,9 @@ const defaultColor = {
     3, [0, 111, 60, 1],
     4, [38,75,150, 1]
    ],
+   saturation: 1,
+   exposure: 0.25,
+   contrast: 0.15,
 };
 
 // cog file load and colour values
@@ -123,12 +156,7 @@ const cog = new TileLayer({
   crossOrigin: 'anonymous',
   opacity: 0.35,
   source: cogSource,
-  style: {
-    color: defaultColor.color,
-    saturation: 1,
-    exposure: 0.25,
-    contrast: 0.15,
-  }
+  style: defaultColor
 })
 
 // Set base raster tiles
@@ -184,24 +212,40 @@ document.getElementById("seafloor").onclick = function() {
       })
     colorSelect.style.display = 'block';
 
-    const btn = document.querySelector('#selectDiv')
-    const qs = document.querySelector('#select')
-    btn.onclick = (event) => {
-      event.preventDefault();
-      // show the selected index
-      const getVal = qs.selectedIndex;
-      const optionName = (qs.options[getVal].text)
-      console.log(optionName)
+    // const btn = document.querySelector('#selectDiv')
+    // const qs = document.querySelector('#select')
 
+    const styles = document.querySelector('select');
+    const styleSelector = document.getElementById('selectDiv');
+
+    function update() {
+      const getVal = styles.selectedIndex;
+      const optionName = (styles.options[getVal].text)
+      console.log(optionName)
       const nameEl = cogVis.find(nameEl => nameEl.name === optionName);
-      const newStyle = nameEl.color;  
-      console.log(newStyle)    
+      const newStyle = nameEl.style;  
+      console.log(newStyle);
       cog.setStyle(newStyle);
-      
+      //   console.log(optionName)
+    }
+
+    styleSelector.addEventListener('change', update);
+    // btn.onclick = (event) => {
+    //   event.preventDefault();
+    //   // show the selected index
+    //   const getVal = qs.selectedIndex;
+    //   const optionName = (qs.options[getVal].text)
+    //   console.log(optionName)
+
+    //   const nameEl = cogVis.find(nameEl => nameEl.name === optionName);
+    //   const newStyle = nameEl.color;  
+    //   console.log(newStyle);
+    //   function update() {
+    //     cog.setStyle(newStyle);
+    //   }    
+    //   qs.addEventListener('change', update);   
       // style.getFill().setColor(newColorArray);
       // mapLayers[i].setStyle(style);
-
-    };
   }
   
 };
