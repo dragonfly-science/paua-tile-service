@@ -23,6 +23,14 @@ html, body {
 } */
 
 /* map-controls */
+#seafloor {
+  z-index: 2;
+}
+
+#selectDiv {
+  z-index: 10;
+}
+
 .menu-ui {
   background:#fff;
   position:absolute;

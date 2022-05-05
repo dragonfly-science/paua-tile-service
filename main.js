@@ -181,15 +181,25 @@ const map = new Map ({
 //   cog.setVisible(!cog.getVisible());
 // };
 
-const navSelect = document.getElementById('menu-ui');
-cogVis.forEach((visualization) => {
-  const option = document.createElement('option');
-  option.textContent = visualization.name;
-  navSelect.appendChild(option);
-});
-
-console.log(navSelect)
-
+document.getElementById("seafloor").onclick = function() {
+  cog.setVisible(!cog.getVisible());
+  const colorSelect = document.getElementById('selectDiv');
+  if (colorSelect.style.display === 'block') {
+    colorSelect.innerHTML = "";
+    colorSelect.style.display = "none";
+    } else {
+    const selectList = document.createElement("select");
+    colorSelect.appendChild(selectList);
+    cogVis.forEach((visualization) => {
+    const option = document.createElement('option');
+    option.textContent = visualization.name;
+    selectList.appendChild(option);
+    })
+    colorSelect.style.display = 'block';
+    const divSetting = colorSelect.style.display;
+  }
+};
+ 
 // document.getElementById("menu-ui").onclick = function() {
 //   cog.setVisible(!cog.getVisible());
 // };
