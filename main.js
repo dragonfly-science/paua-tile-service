@@ -82,8 +82,43 @@ const cogVis = [
      saturation: 1,
      exposure: 0.25,
      contrast: 0.15,
-    }
-    
+    }    
+  },
+  {
+    name: "Fine Sand Only",
+    style: {
+      color: [
+        'interpolate',
+        ['linear'],
+        ['band', 1],
+        0, [0,0,0,0],
+        1, [191, 33, 47, 0],
+        2, [249, 167, 62, 1],
+        3, [0, 111, 60, 0],
+        4, [38,75,150, 0]
+       ],
+     saturation: 1,
+     exposure: 0.25,
+     contrast: 0.15,
+    }    
+  },
+  {
+    name: "Medium Sand Only",
+    style: {
+      color: [
+        'interpolate',
+        ['linear'],
+        ['band', 1],
+        0, [0,0,0,0],
+        1, [191, 33, 47, 0],
+        2, [249, 167, 62, 0],
+        3, [0, 111, 60, 1],
+        4, [38,75,150, 0]
+       ],
+     saturation: 1,
+     exposure: 0.25,
+     contrast: 0.15,
+    }    
   },
   {
     name: "Gravel Only",
@@ -164,6 +199,7 @@ const map = new Map ({
 
 document.getElementById("seafloor").onclick = function() {
   cog.setVisible(!cog.getVisible());
+  const resetDiv = document.getElementById("seafloor");
   const colorSelect = document.getElementById('selectDiv');
   if (colorSelect.style.display === 'block') {
     colorSelect.innerHTML = "";
@@ -195,7 +231,10 @@ document.getElementById("seafloor").onclick = function() {
 
     styleSelector.addEventListener('change', update);
   }
-  
+  function resetCog() {
+    cog.setStyle(defaultColor)
+  }
+  resetDiv.addEventListener('click', resetCog)
 };
 
 // Set onclick to return values from COG
