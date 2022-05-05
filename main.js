@@ -64,7 +64,7 @@ const cogVis = [
       2, [249, 167, 62, 1],
       3, [0, 111, 60, 1],
       4, [38,75,150, 1]
-     ],
+     ]
   },
   {
     name: "Mud Only",
@@ -77,7 +77,7 @@ const cogVis = [
       2, [249, 167, 62, 0],
       3, [0, 111, 60, 0],
       4, [38,75,150, 0]
-     ],
+     ]
   }
 ];
 
@@ -104,7 +104,7 @@ const cogVis = [
 //   });
 // }
 
-const variables = {
+const defaultColor = {
   color: [
     'interpolate',
     ['linear'],
@@ -117,8 +117,6 @@ const variables = {
    ],
 };
 
-console.log(variables)
-
 // cog file load and colour values
 const cog = new TileLayer({
   visible: false,
@@ -126,8 +124,7 @@ const cog = new TileLayer({
   opacity: 0.35,
   source: cogSource,
   style: {
-    color: variables.color,
-    variables: variables,
+    color: defaultColor.color,
     saturation: 1,
     exposure: 0.25,
     contrast: 0.15,
@@ -169,6 +166,7 @@ const map = new Map ({
 //   cog.setVisible(!cog.getVisible());
 // };
 
+console.log(defaultColor.color)
 document.getElementById("seafloor").onclick = function() {
   cog.setVisible(!cog.getVisible());
   const colorSelect = document.getElementById('selectDiv');
@@ -196,14 +194,14 @@ document.getElementById("seafloor").onclick = function() {
       console.log(optionName)
 
       const nameEl = cogVis.find(nameEl => nameEl.name === optionName);
-      const newStyle = nameEl.style;
-      console.log(newStyle)
-      cog.updateStyleVariables(newStyle);
+      const newStyle = nameEl.color;  
+      console.log(newStyle)    
+      cog.setStyle(newStyle);
       
       // style.getFill().setColor(newColorArray);
       // mapLayers[i].setStyle(style);
 
-  };
+    };
   }
   
 };
