@@ -55,51 +55,32 @@ const cogSource = new GeoTIFF({
 const cogVis = [
   {
     name: "All Values",
-    sources: [
-      {
-        min: 1,
-        max: 4,
-        nodata: 127,
-      }
-    ],
-    style: {
-      color: [
-        'interpolate',
-        ['linear'],
-        ['band', 1],
-        0, [0,0,0,0],
-        1, [191, 33, 47, 1],
-        2, [249, 167, 62, 1],
-        3, [0, 111, 60, 1],
-        4, [38,75,150, 1]
-       ]
-
-    }
+    color: [
+      'interpolate',
+      ['linear'],
+      ['band', 1],
+      0, [0,0,0,0],
+      1, [191, 33, 47, 1],
+      2, [249, 167, 62, 1],
+      3, [0, 111, 60, 1],
+      4, [38,75,150, 1]
+     ],
   },
   {
     name: "Mud Only",
-    sources: [
-      {
-        min: 1,
-        max: 4,
-        nodata: 127,
-      }
-    ],
-    style: {
-      color: [
-        'interpolate',
-        ['linear'],
-        ['band', 1],
-        0, [0,0,0,0],
-        1, [191, 33, 47, 1],
-        2, [249, 167, 62, 0],
-        3, [0, 111, 60, 0],
-        4, [38,75,150, 0]
-       ]
-
-    }
+    color: [
+      'interpolate',
+      ['linear'],
+      ['band', 1],
+      0, [0,0,0,0],
+      1, [191, 33, 47, 1],
+      2, [249, 167, 62, 0],
+      3, [0, 111, 60, 0],
+      4, [38,75,150, 0]
+     ],
   }
 ];
+
 
 // function createLayer(base, visualization) {
 //   const source = new GeoTIFF({
@@ -123,6 +104,21 @@ const cogVis = [
 //   });
 // }
 
+const variables = {
+  color: [
+    'interpolate',
+    ['linear'],
+    ['band', 1],
+    0, [0,0,0,0],
+    1, [191, 33, 47, 1],
+    2, [249, 167, 62, 1],
+    3, [0, 111, 60, 1],
+    4, [38,75,150, 1]
+   ],
+};
+
+console.log(variables)
+
 // cog file load and colour values
 const cog = new TileLayer({
   visible: false,
@@ -130,19 +126,11 @@ const cog = new TileLayer({
   opacity: 0.35,
   source: cogSource,
   style: {
-    color: [
-      'interpolate',
-      ['linear'],
-      ['band', 1],
-      0, [0,0,0,0],
-      1, [191, 33, 47, 1],
-      2, [249, 167, 62, 1],
-      3, [0, 111, 60, 1],
-      4, [38,75,150, 1]
-     ],
-     saturation: 1,
-     exposure: 0.25,
-     contrast: 0.15
+    color: variables.color,
+    variables: variables,
+    saturation: 1,
+    exposure: 0.25,
+    contrast: 0.15,
   }
 })
 
@@ -206,6 +194,15 @@ document.getElementById("seafloor").onclick = function() {
       const getVal = qs.selectedIndex;
       const optionName = (qs.options[getVal].text)
       console.log(optionName)
+
+      const nameEl = cogVis.find(nameEl => nameEl.name === optionName);
+      const newStyle = nameEl.color;
+      console.log(newStyle)
+      cog.updateStyleVariables(newStyle);
+      
+      // style.getFill().setColor(newColorArray);
+      // mapLayers[i].setStyle(style);
+
   };
   }
   
