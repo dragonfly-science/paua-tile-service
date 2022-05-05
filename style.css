@@ -27,10 +27,11 @@ html, body {
   z-index: 2;
 }
 
-#selectDiv {
+.selectDiv {
   z-index: 10;
 }
 
+ 
 .menu-ui {
   background:#fff;
   position:absolute;

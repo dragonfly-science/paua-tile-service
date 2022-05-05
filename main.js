@@ -189,17 +189,29 @@ document.getElementById("seafloor").onclick = function() {
     colorSelect.style.display = "none";
     } else {
     const selectList = document.createElement("select");
+    selectList.id = "select";
     colorSelect.appendChild(selectList);
     cogVis.forEach((visualization) => {
-    const option = document.createElement('option');
-    option.textContent = visualization.name;
-    selectList.appendChild(option);
-    })
+      const option = document.createElement('option');
+      option.textContent = visualization.name;
+      selectList.appendChild(option);
+      })
     colorSelect.style.display = 'block';
-    const divSetting = colorSelect.style.display;
+
+    const btn = document.querySelector('#selectDiv')
+    const qs = document.querySelector('#select')
+    btn.onclick = (event) => {
+      event.preventDefault();
+      // show the selected index
+      const getVal = qs.selectedIndex;
+      const optionName = (qs.options[getVal].text)
+      console.log(optionName)
+  };
   }
+  
 };
- 
+
+
 // document.getElementById("menu-ui").onclick = function() {
 //   cog.setVisible(!cog.getVisible());
 // };
