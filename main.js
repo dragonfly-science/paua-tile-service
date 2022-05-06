@@ -259,7 +259,7 @@ map.on('singleclick', function(evt) {
   } else if (data[0]==4) {
     var codeText = "High reflectivity (coarse sand, gravel)"
   }
-  content.innerHTML = '<p>Seafloor classification value:</p><p><code>' + data[0] + '</code></p><p>' + codeText + '</p>';
+  content.innerHTML = "<div class='popupText'>Seafloor classification value: <strong>" + data[0] + "</strong><div class=returnVal>" + codeText + "</div></div>";
   overlay.setPosition(coordinate);
 })
 

@@ -126,3 +126,13 @@ html, body {
 .ol-popup-closer:after {
   content: "✖";
 }
+
+.popupText {
+  font-size: 16px;
+}
+
+.returnVal {
+  font-style: italic;
+  padding-top: 10px;
+
+}
