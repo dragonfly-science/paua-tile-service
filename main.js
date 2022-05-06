@@ -238,7 +238,7 @@ document.getElementById("seafloor").onclick = function() {
     // Opacity Controller
     const opaclabel = document.getElementById("cogOpacity");
     opaclabel.style.display = "block";
-    opaclabel.innerHTML = "COG Opacity <input id='level' type='range' min='0' max='1' step='0.05' value='0.35'/><span id='output'></span>"
+    opaclabel.innerHTML = "COG Opacity: <span id='output'></span><input id='level' type='range' min='0' max='1' step='0.05' value='0.35'/>"
 
     const control = document.getElementById('level');
     const output = document.getElementById('output');

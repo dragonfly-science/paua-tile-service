@@ -1,5 +1,10 @@
 @import "node_modules/ol/ol.css";
 
+* {
+  font-size: 100%;
+  font-family: Arial;
+ }
+
 html, body {
   margin: 0;
   height: 100%;
@@ -23,24 +28,34 @@ html, body {
 } */
 
 /* map-controls */
-#seafloor {
-  z-index: 2;
+.seafloor {
+  z-index: 3;
 }
 
 .selectDiv {
-  z-index: 1;
+  z-index: 2;
+  font-size: 13px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+#cogOpacity {
+  font-size: 13px;
+  padding-bottom: 10px;
+  padding-left: 10px;
 }
 
 #level {
-  z-index: 10;
+  z-index: 4;
+  font-size: 13px;
 }
  
 .menu-ui {
   background:#fff;
   position:absolute;
-  top:60px;right:10px;
+  top:60px;right:3%;
   z-index:1;
-  width:120px;
+  width:190px;
   }
 .menu-ui a {
   font-size:13px;
@@ -50,6 +65,8 @@ html, body {
   padding:10px;
   text-decoration:none;
   text-align:center;
+  font-size: 15px;
+  font-weight: 600;
 }
 .menu-ui a:first-child {
 }
