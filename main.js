@@ -161,7 +161,6 @@ const defaultColor = {
 const cog = new TileLayer({
   visible: false,
   crossOrigin: 'anonymous',
-  opacity: 0.35,
   source: cogSource,
   style: defaultColor
 })
@@ -201,9 +200,14 @@ document.getElementById("seafloor").onclick = function() {
   cog.setVisible(!cog.getVisible());
   const resetDiv = document.getElementById("seafloor");
   const colorSelect = document.getElementById('selectDiv');
+
+  // Build Style Selector
   if (colorSelect.style.display === 'block') {
     colorSelect.innerHTML = "";
     colorSelect.style.display = "none";
+    const opaclabel = document.getElementById("cogOpacity");
+    opaclabel.innerHTML = "";
+    opaclabel.style.display = "none";
     } else {
     const selectList = document.createElement("select");
     selectList.id = "select";
@@ -230,9 +234,31 @@ document.getElementById("seafloor").onclick = function() {
     }
 
     styleSelector.addEventListener('change', update);
+
+    // Opacity Controller
+    const opaclabel = document.getElementById("cogOpacity");
+    opaclabel.style.display = "block";
+    opaclabel.innerHTML = "COG Opacity <input id='level' type='range' min='0' max='1' step='0.05' value='0.35'/><span id='output'></span>"
+
+    const control = document.getElementById('level');
+    const output = document.getElementById('output');
+    function updateOpac() {
+      const opacity = parseFloat(control.value);
+      console.log(opacity);
+      cog.setOpacity(opacity);
+      output.innerText = control.value;
+      console.log(control.value)
+
+    }
+    control.addEventListener('input', updateOpac);
+    control.addEventListener('change', updateOpac);
+    updateOpac();
   }
+  
+
+  // reset COG vis on close
   function resetCog() {
-    cog.setStyle(defaultColor)
+    cog.setStyle(defaultColor);
   }
   resetDiv.addEventListener('click', resetCog)
 };
