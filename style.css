@@ -35,14 +35,10 @@ html, body {
 .selectDiv {
   z-index: 2;
   font-size: 13px;
-  padding-bottom: 10px;
-  padding-left: 10px;
 }
 
 #cogOpacity {
   font-size: 13px;
-  padding-bottom: 10px;
-  padding-left: 10px;
 }
 
 #level {

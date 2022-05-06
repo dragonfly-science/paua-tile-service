@@ -183,7 +183,8 @@ document.getElementById("seafloor").onclick = function() {
   const resetDiv = document.getElementById("seafloor");
   const colorSelect = document.getElementById('selectDiv');
 
-  // Build Style Selector
+  // Build Style Selector and opacity control
+  // Remove if exists
   if (colorSelect.style.display === 'block') {
     colorSelect.innerHTML = "";
     colorSelect.style.display = "none";
@@ -193,7 +194,11 @@ document.getElementById("seafloor").onclick = function() {
     } else {
     const selectList = document.createElement("select");
     selectList.id = "select";
+    selectList.class = "select";
     colorSelect.appendChild(selectList);
+    colorSelect.style.paddingBottom = '10px';
+    colorSelect.style.paddingLeft = '10px';
+
     cogVis.forEach((visualization) => {
       const option = document.createElement('option');
       option.textContent = visualization.name;
@@ -220,7 +225,10 @@ document.getElementById("seafloor").onclick = function() {
     // Opacity Controller
     const opaclabel = document.getElementById("cogOpacity");
     opaclabel.style.display = "block";
-    opaclabel.innerHTML = "COG Opacity: <span id='output'></span><input id='level' type='range' min='0' max='1' step='0.05' value='0.35'/>"
+    opaclabel.innerHTML = "COG Opacity: <span id='output'></span><input id='level' type='range' min='0' max='1' step='0.05' value='0.35'/>";
+
+    opaclabel.style.paddingBottom = '10px';
+    opaclabel.style.paddingLeft = '10px';
 
     const control = document.getElementById('level');
     const output = document.getElementById('output');
