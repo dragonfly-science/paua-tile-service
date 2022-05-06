@@ -61,9 +61,6 @@ const cogVis = [
         3, [0, 111, 60, 1],
         4, [38,75,150, 1]
        ],
-     saturation: 1,
-     exposure: 0.25,
-     contrast: 0.15,
     }
   },
   {
@@ -79,9 +76,6 @@ const cogVis = [
         3, [0, 111, 60, 0],
         4, [38,75,150, 0]
        ],
-     saturation: 1,
-     exposure: 0.25,
-     contrast: 0.15,
     }    
   },
   {
@@ -97,9 +91,6 @@ const cogVis = [
         3, [0, 111, 60, 0],
         4, [38,75,150, 0]
        ],
-     saturation: 1,
-     exposure: 0.25,
-     contrast: 0.15,
     }    
   },
   {
@@ -115,9 +106,6 @@ const cogVis = [
         3, [0, 111, 60, 1],
         4, [38,75,150, 0]
        ],
-     saturation: 1,
-     exposure: 0.25,
-     contrast: 0.15,
     }    
   },
   {
@@ -133,9 +121,6 @@ const cogVis = [
         3, [0, 111, 60, 0],
         4, [38,75,150, 1]
        ],
-     saturation: 1,
-     exposure: 0.25,
-     contrast: 0.15,
     }
     
   }
@@ -152,9 +137,6 @@ const defaultColor = {
     3, [0, 111, 60, 1],
     4, [38,75,150, 1]
    ],
-   saturation: 1,
-   exposure: 0.25,
-   contrast: 0.15,
 };
 
 // cog file load and colour values
